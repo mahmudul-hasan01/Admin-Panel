@@ -7,7 +7,7 @@ const Dashboard = () => {
     return (
         <div>
             {/* Info */}
-            <div className="flex gap-4 justify-center overflow-x-auto pl-20">
+            <div className="flex gap-4 justify-center overflow-x-auto">
                 <div className="w-56 h-44 border border-[#CB0881] rounded-3xl p-4 space-y-2">
                     <GiMoneyStack className="text-6xl text-[#3470E4]" />
                     <p className="text-xl text-[#CB0881] font-bold">$0</p>

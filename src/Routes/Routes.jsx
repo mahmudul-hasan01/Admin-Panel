@@ -11,12 +11,14 @@ import Secutiry from "../Page/Secutiry";
 import Faq from "../Page/Faq";
 import Kyc from "../Page/Kyc";
 import Dashboard from "../Page/Dashboard";
+import AdminLogin from "../AdminLogin/AdminLogin";
+import AdminRoute from "../AdminRoute/AdminRoute";
 
-export  const router = createBrowserRouter([
-        {
-          path: "/",
-          element: <AdminPanel />,
-          children: [
+export const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <AdminRoute> <AdminPanel /> </AdminRoute>,
+        children: [
             {
                 path: '/',
                 element: <Dashboard />
@@ -61,6 +63,10 @@ export  const router = createBrowserRouter([
                 path: '/faq',
                 element: <Faq />
             },
-          ]
-        },
-      ]);
+        ]
+    },
+    {
+        path: '/adminLogin',
+        element: <AdminLogin />
+    },
+]);
