@@ -4,9 +4,9 @@ const Trade = () => {
     return (
         <div>
             {/* Table */}
-            <div className="flex gap-4 justify-center mt-10">
+            <div className="flex flex-col lg:flex-row gap-4 justify-center mt-10">
                 {/* Table 1 */}
-                <div className="overflow-x-auto w-3/6 bg-[#FCEEF8] rounded-xl">
+                <div className="overflow-x-auto w-full lg:w-3/6 bg-[#FCEEF8] rounded-xl">
                     <div className="flex justify-between w-[395px] lg:w-full pt-5 px-5">
                         <p className="text-[18px] font-bold text-[#CB0881] flex items-center">Trade Shedule</p>
                         <button className="px-3 py-2 rounded-full bg-[#CB0881] text-white">+ Add New </button>
@@ -41,7 +41,7 @@ const Trade = () => {
                 </div>
 
                 {/* Table 2*/}
-                <div className="overflow-x-auto w-3/6 bg-[#FCEEF8] rounded-xl">
+                <div className="overflow-x-auto  w-full lg:w-3/6 bg-[#FCEEF8] rounded-xl">
                     <div className="flex justify-between w-[370px] lg:w-full pt-5 px-5">
                         <p className="text-[18px] font-bold text-[#CB0881] flex items-center">Trade Method</p>
                         <button className="px-3 py-2 rounded-full bg-[#CB0881] text-white">+ Add New </button>
@@ -115,7 +115,7 @@ const Trade = () => {
             {/* Info */}
             <div className="flex flex-col lg:flex-row gap-20">
                 {/* 1111 */}
-                <div className="relative flex justify-between w-full md:w-[400px] h-60 md:h-48 bg-[#FCEEF8] rounded-xl">
+                <div className="relative flex justify-between w-full md:w-[400px] h-64 md:h-48 bg-[#FCEEF8] rounded-xl">
                     <div className="pl-4 pt-2 text-[#CB0881] font-semibold space-y-1 lg:space-y-2">
                         <h1>TR-37-3KT</h1>
                         <div>
@@ -131,7 +131,7 @@ const Trade = () => {
                     <button className="absolute -right-5 -top-3 px-4 py-1 rounded-full bg-[#3470E4] text-white">Edit</button>
                 </div>
                 {/* 2222 */}
-                <div className="relative flex justify-between w-full md:w-[400px] h-60 md:h-48 bg-[#FCEEF8] rounded-xl">
+                <div className="relative flex justify-between w-full md:w-[400px] h-64 md:h-48 bg-[#FCEEF8] rounded-xl">
                     <div className="pl-4 pt-2 text-[#CB0881] font-semibold space-y-2">
                         <h1>TR-37-3KT</h1>
                         <div>
