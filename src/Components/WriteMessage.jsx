@@ -13,7 +13,7 @@ const WriteMessage = () => {
 
     return (
         <div>
-            <div className="mx-auto flex items-center justify-center">
+            <div className="mx-auto flex items-center justify-center w-40">
                 <button onClick={() => setOpenModal(true)} className="px-3 py-1 rounded-full border border-black text-[#CB0881] bg-white">
                     Write a message
                 </button>

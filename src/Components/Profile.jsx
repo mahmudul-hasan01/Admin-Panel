@@ -30,10 +30,10 @@ const Profile = () => {
                     <h1>MD. Mahmudul Hasan</h1>
                     <h2 className="text-[#CB087D] font-semibold">Admin</h2>
                 </div>
-                <TiArrowSortedDown className="text-xl" />
+                {/* <TiArrowSortedDown className="text-xl" /> */}
             </div>
             {/* Notifications info */}
-            <div className={`absolute ${notification ? 'block' : 'hidden'} top-28 right-8 z-50 mx-auto w-full max-w-[550px] rounded-lg bg-[#faddee] p-4`}>
+            <div className={`absolute ${notification ? 'block' : 'hidden'} top-28 right-0 md:right-8 z-50 mx-auto w-full max-w-[550px] rounded-lg bg-[#faddee] p-4`}>
                 {dataArr.map((PerAccordion, idx) => (
                     <div key={idx} className="my-2 rounded-lg border bg-white p-3 py-3 *:mix-blend-difference dark:border-zinc-600 dark:bg-zinc-800">
                         <button onClick={() => toggle(idx)} className="flex h-full w-full items-center justify-between font-medium text-white outline-none">

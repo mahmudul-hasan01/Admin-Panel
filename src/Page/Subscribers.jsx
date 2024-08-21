@@ -27,7 +27,7 @@ const Subscribers = () => {
                             <td className="py-4 px-6 border border-[#CB084B]">admin@gmail.com</td>
                             <td className="py-4 px-6 border border-[#CB084B]">01917090220</td>
                             <td className="py-4 px-6 border border-[#CB084B]">011123</td>
-                            <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end flex gap-5 justify-center">
+                            <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end flex flex-col lg:flex-row gap-5 justify-center">
                                 <WriteMessage />
                                 <EditMessage />
                             </td>

@@ -1,14 +1,20 @@
+/* eslint-disable react/prop-types */
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoCloseSharp } from "react-icons/io5";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
-const UserEdit = () => {
+const UserEdit = ({ id, refetch }) => {
 
+    const axiosPublic = useAxiosPublic()
     const [openModal, setOpenModal] = useState(false);
 
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit } = useForm()
+
     const onSubmit = async (data) => {
-        console.log(data);
+        await axiosPublic.patch(`/editUser/${id}`, data)
+        refetch()
     }
 
     return (
@@ -42,7 +48,11 @@ const UserEdit = () => {
                                     <label className="block font-medium text-start" htmlFor="_email">
                                         User Status
                                     </label>
-                                    <input {...register("userStatus", { required: true })} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" />
+                                    <select  {...register("userStatus", { required: true })} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" >
+                                        <option value="Active">Active</option>
+                                        <option value="Disable">Disable</option>
+                                    </select>
+                                    {/* <input/> */}
                                 </div>
                             </div>
                             <div className="flex justify-center">

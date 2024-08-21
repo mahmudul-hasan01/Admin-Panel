@@ -2,12 +2,39 @@ import { GiMoneyStack } from "react-icons/gi";
 import { FaFileCirclePlus } from "react-icons/fa6";
 import { RiExchangeDollarLine } from "react-icons/ri";
 import { FaUserGroup } from "react-icons/fa6";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const Dashboard = () => {
+
+    const axiosPublic = useAxiosPublic()
+
+    const { data, refetch } = useQuery({
+        queryKey: ['withdraws'],
+        queryFn: async () => {
+            const info = await axiosPublic.get(`/pendignWithdraw`)
+            return info?.data
+        }
+    })
+    
+    const handleApproved = async (id) => {
+
+        const info = await axiosPublic.patch(`/approved/${id}`, { approved: 'Approved' })
+        console.log(info.data);
+        refetch()
+    }
+
+    const handlePending = async (id) => {
+
+        const info = await axiosPublic.patch(`/approved/${id}`, { approved: 'Pending' })
+        console.log(info.data);
+        refetch()
+    }
+
     return (
         <div>
             {/* Info */}
-            <div className="flex gap-4 justify-center overflow-x-auto">
+            <div className="flex gap-4 pl-[250px] md:pl-0 justify-center overflow-x-auto">
                 <div className="w-56 h-44 border border-[#CB0881] rounded-3xl p-4 space-y-2">
                     <GiMoneyStack className="text-6xl text-[#3470E4]" />
                     <p className="text-xl text-[#CB0881] font-bold">$0</p>
@@ -30,7 +57,7 @@ const Dashboard = () => {
                 </div>
             </div>
             {/* Table */}
-            <div className="flex gap-4 justify-center mt-10">
+            <div className="flex flex-col md:flex-row gap-4 justify-center mt-10">
                 {/* Table 1 */}
                 <div className="overflow-x-auto bg-[#FCEEF8] rounded-xl">
                     <div>
@@ -46,25 +73,19 @@ const Dashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="hover:bg-gray-50 transition duration-300">
-                                <td className="py-4 px-6 border border-l-0 border-[#CB084B]">01</td>
-                                <td className="py-4 px-6 border border-[#CB084B]">Razzak</td>
-                                <td className="py-4 px-6 border border-[#CB084B]">&1100</td>
-                                <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end space-x-2">
-                                    <button className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
-                                    <button className="px-3 py-1 rounded-full bg-[#949393] text-white">Pending</button>
-                                </td>
-                            </tr>
-                            <tr className="hover:bg-gray-50 transition duration-300">
-                                <td className="py-4 px-6 border border-l-0 border-[#CB084B]">02</td>
-                                <td className="py-4 px-6 border border-[#CB084B]">Razzak</td>
-                                <td className="py-4 px-6 border border-[#CB084B]">&1100</td>
-                                <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end space-x-2">
-                                    <button className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
-                                    <button className="px-3 py-1 rounded-full bg-[#949393] text-white">Pending</button>
-                                </td>
-                            </tr>
-
+                            {
+                                data?.map((item, i) => (
+                                    <tr key={item._id} className="hover:bg-gray-50 transition duration-300">
+                                        <td className="py-4 px-6 border border-l-0 border-[#CB084B]">{i+1}</td>
+                                        <td className="py-4 px-6 border border-[#CB084B]">{item.user}</td>
+                                        <td className="py-4 px-6 border border-[#CB084B]">${item.amount}</td>
+                                        <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end flex items-center gap-2">
+                                            <button onClick={() => handleApproved(item._id)} className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
+                                            <button onClick={() => handlePending(item._id)} className="px-3 py-1 rounded-full bg-[#949393] text-white">Pending</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -86,7 +107,7 @@ const Dashboard = () => {
                             <tr className="hover:bg-gray-50 transition duration-300">
                                 <td className="py-4 px-6 border border-l-0 border-[#CB084B]">01</td>
                                 <td className="py-4 px-6 border border-[#CB084B]">Razzak</td>
-                                <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end space-x-2">
+                                <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end flex items-center gap-2">
                                     <button className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
                                     <button className="px-3 py-1 rounded-full bg-[#949393] text-white">Pending</button>
                                 </td>

@@ -1,14 +1,18 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoCloseSharp } from "react-icons/io5";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
-const UserBalance = () => {
+const UserBalance = ({ id, refetch }) => {
 
+    const axiosPublic = useAxiosPublic()
     const [openModal, setOpenModal] = useState(false);
 
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit } = useForm()
     const onSubmit = async (data) => {
-        console.log(data);
+        await axiosPublic.patch(`/editBalance/${id}`, data)
+        refetch()
     }
 
     return (
@@ -30,14 +34,14 @@ const UserBalance = () => {
                                     <label className="block font-medium text-start" htmlFor="_email">
                                         Total Balance
                                     </label>
-                                    <input {...register("totalBalance")} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" />
+                                    <input {...register("totalBalance")} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="number" />
                                 </div>
                             </div>
                             <div className="flex justify-center gap-4">
                                 <button type="submit" className="py-2 w-32 rounded-full mt-6 bg-[#12C703] text-white drop-shadow-lg ">
                                     Add
                                 </button>
-                                <button type="button" className="py-2 w-32 rounded-full mt-6 bg-[#CB0881] text-white drop-shadow-lg ">
+                                <button  onClick={() => setOpenModal(false)} type="button" className="py-2 w-32 rounded-full mt-6 bg-[#CB0881] text-white drop-shadow-lg ">
                                     Subtract
                                 </button>
                             </div>
