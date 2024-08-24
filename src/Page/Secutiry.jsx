@@ -43,56 +43,63 @@ const Secutiry = () => {
                         <label className="block font-medium text-start mb-1" htmlFor="_email">
                             Strong Password
                         </label>
-                        <select defaultValue={'Enable'} className="w-72 md:w-96 lg:w-80 xl: h-12 border border-black rounded-xl">
-                            <option disabled value="Enable">Enable</option>
+                        <select className="w-72 md:w-96 lg:w-80 xl: h-12 border border-black rounded-xl">
+                            <option value="Enable">Enable</option>
+                            <option value="Disable">Disable</option>
                         </select>
                     </div>
                     <div>
                         <label className="block font-medium text-start mb-1" htmlFor="_email">
                             Deposit
                         </label>
-                        <select defaultValue={'Enable'} className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
-                            <option disabled value="Enable">Enable</option>
+                        <select className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
+                            <option value="Enable">Enable</option>
+                            <option value="Disable">Disable</option>
                         </select>
                     </div>
                     <div>
                         <label className="block font-medium text-start mb-1" htmlFor="_email">
                             Registration
                         </label>
-                        <select defaultValue={'Enable'} className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
-                            <option disabled value="Enable">Enable</option>
+                        <select className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
+                            <option value="Enable">Enable</option>
+                            <option value="Disable">Disable</option>
                         </select>
                     </div>
                     <div>
                         <label className="block font-medium text-start mb-1" htmlFor="_email">
                             Email
                         </label>
-                        <select defaultValue={'Enable'} className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
-                            <option disabled value="Enable">Enable</option>
+                        <select className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
+                            <option value="Enable">Enable</option>
+                            <option value="Disable">Disable</option>
                         </select>
                     </div>
                     <div>
                         <label className="block font-medium text-start mb-1" htmlFor="_email">
                             Withdraw
                         </label>
-                        <select defaultValue={'Enable'} className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
-                            <option disabled value="Enable">Enable</option>
+                        <select className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
+                            <option value="Enable">Enable</option>
+                            <option value="Disable">Disable</option>
                         </select>
                     </div>
                     <div>
                         <label className="block font-medium text-start mb-1" htmlFor="_email">
                             Phone
                         </label>
-                        <select defaultValue={'Enable'} className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
-                            <option disabled value="Enable">Enable</option>
+                        <select className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
+                            <option value="Enable">Enable</option>
+                            <option value="Disable">Disable</option>
                         </select>
                     </div>
                     <div>
                         <label className="block font-medium text-start mb-1" htmlFor="_email">
                             OTP
                         </label>
-                        <select defaultValue={'Enable'} className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
-                            <option disabled value="Enable">Enable</option>
+                        <select className="w-72 md:w-96 lg:w-80 h-12 border border-black rounded-xl">
+                            <option value="Enable">Enable</option>
+                            <option value="Disable">Disable</option>
                         </select>
                     </div>
                 </div>

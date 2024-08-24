@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoCloseSharp } from "react-icons/io5";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
@@ -8,12 +8,33 @@ const UserBalance = ({ id, refetch }) => {
 
     const axiosPublic = useAxiosPublic()
     const [openModal, setOpenModal] = useState(false);
+    // const [depositId, setDepositId] = useState('')
 
     const { register, handleSubmit } = useForm()
+
     const onSubmit = async (data) => {
-        await axiosPublic.patch(`/editBalance/${id}`, data)
-        refetch()
+        console.log({ userId: id, amount: data.amount, status: data.status, depositId: data.depositId });
+        try {
+            const info = await axiosPublic.put(`/user/deposit/load`, { userId: id, amount: data.amount, status: data.status, depositId: data.depositId })
+            console.log(info?.data);
+            refetch()
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
     }
+
+    // deposit
+
+    // useEffect(() => {
+    //     axiosPublic.get(`/user/all/deposit`)
+    //         .then(depositInfo => {
+    //             depositInfo?.data?.deposit.map(item=> setDepositId(item.user._id === id && item._id))
+    //         })
+    // }, [])
+    // console.log(depositId);
+
+
+
 
     return (
         <div>
@@ -34,14 +55,29 @@ const UserBalance = ({ id, refetch }) => {
                                     <label className="block font-medium text-start" htmlFor="_email">
                                         Total Balance
                                     </label>
-                                    <input {...register("totalBalance")} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="number" />
+                                    <input {...register("amount")} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="number" />
+                                </div>
+                                <div className="space-y-2 text-sm text-zinc-700 dark:text-zinc-400">
+                                    <label className="block font-medium text-start" htmlFor="_email">
+                                        Deposit Id
+                                    </label>
+                                    <input {...register("depositId")} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" />
+                                </div>
+                                <div className="space-y-2 text-sm text-zinc-700 dark:text-zinc-400">
+                                    <label className="block font-medium text-start" htmlFor="_email">
+                                        Status
+                                    </label>
+                                    <select  {...register("status", { required: true })} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" >
+                                        <option value="Paid">Paid</option>
+                                        <option value="Rejected">Rejected</option>
+                                    </select>
                                 </div>
                             </div>
                             <div className="flex justify-center gap-4">
                                 <button type="submit" className="py-2 w-32 rounded-full mt-6 bg-[#12C703] text-white drop-shadow-lg ">
                                     Add
                                 </button>
-                                <button  onClick={() => setOpenModal(false)} type="button" className="py-2 w-32 rounded-full mt-6 bg-[#CB0881] text-white drop-shadow-lg ">
+                                <button onClick={() => setOpenModal(false)} type="button" className="py-2 w-32 rounded-full mt-6 bg-[#CB0881] text-white drop-shadow-lg ">
                                     Subtract
                                 </button>
                             </div>

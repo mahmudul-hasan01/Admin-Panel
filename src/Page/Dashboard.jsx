@@ -9,26 +9,52 @@ const Dashboard = () => {
 
     const axiosPublic = useAxiosPublic()
 
-    const { data, refetch } = useQuery({
-        queryKey: ['withdraws'],
+    // all-balance
+    const { data: allBalance = [] } = useQuery({
+        queryKey: ['all/balance'],
         queryFn: async () => {
-            const info = await axiosPublic.get(`/pendignWithdraw`)
+            const info = await axiosPublic.get(`/all/balance`)
+            return info?.data
+        }
+    })
+
+    // pending-withdraw
+    const { data, refetch } = useQuery({
+        queryKey: ['pending/withdraw'],
+        queryFn: async () => {
+            const info = await axiosPublic.get(`/pending/withdraw`)
             return info?.data
         }
     })
     
-    const handleApproved = async (id) => {
+    // pending-kyc 
+    const { data: kyc = [] } = useQuery({
+        queryKey: ['pending/kyc'],
+        queryFn: async () => {
+            const info = await axiosPublic.get(`/user/pending/kyc`)
+            return info?.data
+        }
+    })
 
-        const info = await axiosPublic.patch(`/approved/${id}`, { approved: 'Approved' })
-        console.log(info.data);
-        refetch()
+    // approve-withdraw
+    const handleApprovedWithdraw = async (id) => {
+        try {
+            const info = await axiosPublic.patch(`/approved/${id}`, { approved: 'Approved' })
+            console.log(info.data);
+            refetch()
+        } catch (err) {
+            console.log(err);
+        }
     }
-
-    const handlePending = async (id) => {
-
-        const info = await axiosPublic.patch(`/approved/${id}`, { approved: 'Pending' })
-        console.log(info.data);
-        refetch()
+    // approve-kyc
+    const handleApprovedKyc = async (id) => {
+        try {
+            const info = await axiosPublic.put(`/admin/update/kyc`, { id:id, kyc: 'Approved' })
+            console.log(info.data);
+            refetch()
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (
@@ -37,17 +63,17 @@ const Dashboard = () => {
             <div className="flex gap-4 pl-[250px] md:pl-0 justify-center overflow-x-auto">
                 <div className="w-56 h-44 border border-[#CB0881] rounded-3xl p-4 space-y-2">
                     <GiMoneyStack className="text-6xl text-[#3470E4]" />
-                    <p className="text-xl text-[#CB0881] font-bold">$0</p>
+                    <p className="text-xl text-[#CB0881] font-bold">${allBalance?.totalBalance}</p>
                     <p className="text-xl font-semibold">Total Balance</p>
                 </div>
                 <div className="w-56 h-44 border border-[#CB0881] rounded-3xl p-4 space-y-2">
                     <FaFileCirclePlus className="text-6xl text-[#12C703]" />
-                    <p className="text-xl text-[#CB0881] font-bold">$0</p>
+                    <p className="text-xl text-[#CB0881] font-bold">${allBalance?.depositAmount}</p>
                     <p className="text-xl font-semibold">Total Deposit</p>
                 </div>
                 <div className="w-56 h-44 border border-[#CB0881] rounded-3xl p-4 space-y-2">
                     <RiExchangeDollarLine className="text-6xl text-[#CB084B]" />
-                    <p className="text-xl text-[#CB0881] font-bold">$0</p>
+                    <p className="text-xl text-[#CB0881] font-bold">${allBalance?.withdrawAmount}</p>
                     <p className="text-xl font-semibold">Total Withdraw</p>
                 </div>
                 <div className="w-56 h-44 border border-[#CB0881] rounded-3xl p-4 space-y-2">
@@ -74,14 +100,14 @@ const Dashboard = () => {
                         </thead>
                         <tbody>
                             {
-                                data?.map((item, i) => (
+                                data?.withdraw?.map((item, i) => (
                                     <tr key={item._id} className="hover:bg-gray-50 transition duration-300">
-                                        <td className="py-4 px-6 border border-l-0 border-[#CB084B]">{i+1}</td>
-                                        <td className="py-4 px-6 border border-[#CB084B]">{item.user}</td>
+                                        <td className="py-4 px-6 border border-l-0 border-[#CB084B]">{i + 1}</td>
+                                        <td className="py-4 px-6 border border-[#CB084B]">{item?.user?.name}</td>
                                         <td className="py-4 px-6 border border-[#CB084B]">${item.amount}</td>
-                                        <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end flex items-center gap-2">
-                                            <button onClick={() => handleApproved(item._id)} className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
-                                            <button onClick={() => handlePending(item._id)} className="px-3 py-1 rounded-full bg-[#949393] text-white">Pending</button>
+                                        <td className="py-7 px-6 border border-r-0 border-[#CB084B] text-end flex items-center gap-2">
+                                            <button onClick={() => handleApprovedWithdraw(item._id)} className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
+                                            <button className="px-3 py-1 rounded-full bg-[#949393] text-white">Pending</button>
                                         </td>
                                     </tr>
                                 ))
@@ -104,22 +130,19 @@ const Dashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="hover:bg-gray-50 transition duration-300">
-                                <td className="py-4 px-6 border border-l-0 border-[#CB084B]">01</td>
-                                <td className="py-4 px-6 border border-[#CB084B]">Razzak</td>
-                                <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end flex items-center gap-2">
-                                    <button className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
-                                    <button className="px-3 py-1 rounded-full bg-[#949393] text-white">Pending</button>
-                                </td>
-                            </tr>
-                            <tr className="hover:bg-gray-50 transition duration-300">
-                                <td className="py-4 px-6 border border-l-0 border-[#CB084B]">02</td>
-                                <td className="py-4 px-6 border border-[#CB084B]">Razzak</td>
-                                <td className="py-4 px-6 border border-r-0 border-[#CB084B] text-end space-x-2">
-                                    <button className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
-                                    <button className="px-3 py-1 rounded-full bg-[#949393] text-white">Pending</button>
-                                </td>
-                            </tr>
+
+                            {
+                                kyc?.kyc?.map((item, i) => (
+                                    <tr key={item._id} className="hover:bg-gray-50 transition duration-300">
+                                        <td className="py-4 px-6 border border-l-0 border-[#CB084B]">{i + 1}</td>
+                                        <td className="py-4 px-6 border border-[#CB084B]">{item?.user?.name}</td>
+                                        <td className="py-7 px-6 border border-r-0 border-[#CB084B] text-end flex items-center gap-2">
+                                            <button onClick={() => handleApprovedKyc(item._id)} className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
+                                            <button className="px-3 py-1 rounded-full bg-[#949393] text-white">Pending</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
 
                         </tbody>
                     </table>

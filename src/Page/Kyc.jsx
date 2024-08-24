@@ -86,6 +86,11 @@ const Kyc = () => {
                             <FaArrowAltCircleLeft className="text-2xl text-[#CB084B]" />
                         </div>
                     </div>
+                    <div className="flex justify-end mr-[70px]">
+                        <button type="submit" className="py-2 px-4 rounded-full mt-6 bg-[#CB0881] text-white drop-shadow-lg ">
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

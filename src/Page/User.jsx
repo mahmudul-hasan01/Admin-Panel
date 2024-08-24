@@ -10,17 +10,23 @@ import { useState } from "react";
 const User = () => {
 
     const [searchInfo, setSearchInfo] = useState('')
+    // console.log(searchInfo);
 
     const axiosPublic = useAxiosPublic()
 
     const { data, refetch } = useQuery({
-        queryKey: ['users',searchInfo],
+        queryKey: ['users'],
         queryFn: async () => {
-            const info = await axiosPublic.get(`/users?search=${searchInfo}`)
+            const info = await axiosPublic.get(`/all/user`)
             return info?.data
         }
     })
-    console.log(data);
+
+
+    const filteredUsers = data?.user.filter(user =>
+        user.userId.toLowerCase().includes(searchInfo.toLowerCase())
+    );
+    
 
     const handleSearch = (e) => {
         const searchData = e.target.value
@@ -65,18 +71,17 @@ const User = () => {
                     <tbody>
 
                         {
-                            data?.map((item) => (
+                            filteredUsers?.map((item) => (
                                 <tr key={item._id} className="hover:bg-gray-50 transition duration-300 font-semibold text-center">
-                                    <td className="py-4 px-6 border border-l-0 border-[#CB084B]">{item?.userId}</td>
-                                    <td className="py-4 px-6 border border-[#CB084B]">{item?.name}</td>
+                                    <td className="py-4 px-6 border border-l-0 border-[#CB084B]">{item?._id}</td>
+                                    <td className="py-4 px-6 border border-[#CB084B]">{item?.userId}</td>
                                     {
-                                        item?.userStatus ?
-                                            <td className="py-4 px-6 border border-[#CB084B] "><FaCircleDot className={`${item?.userStatus === 'Disable' ? 'text-[#F81212] inline text-xl mr-1' : 'text-[#12C703] inline text-xl mr-1'}`} />{item?.userStatus ? item?.userStatus :
-                                                "Disable"} </td>
+                                        item?.verified ?
+                                            <td className="py-4 px-6 border border-[#CB084B] "><FaCircleDot className={`text-[#12C703] inline text-xl mr-1`} />{"Active"} </td>
                                             :
                                             <td className="py-4 px-6 border border-[#CB084B] "><FaCircleDot className='text-[#F81212] inline text-xl mr-1' /> Disable </td>
                                     }
-                                    <td className="py-4 px-6 border border-[#CB084B]">$ {item?.totalBalance ? item?.totalBalance : '0'}</td>
+                                    <td className="py-4 px-6 border border-[#CB084B]">$ {item?.fundingBalance}</td>
                                     <td className="py-6 px-6 border border-r-0 border-[#CB084B] text-end flex gap-2 justify-center">
                                         <UserEdit id={item?._id} refetch={refetch} />
                                         <UserBalance id={item?._id} refetch={refetch} />

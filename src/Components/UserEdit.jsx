@@ -13,9 +13,15 @@ const UserEdit = ({ id, refetch }) => {
     const { register, handleSubmit } = useForm()
 
     const onSubmit = async (data) => {
-        await axiosPublic.patch(`/editUser/${id}`, data)
-        refetch()
+        try {
+            const info = await axiosPublic.put(`/update/admin/user`, { id: data.userId, userName: data.name })
+            console.log(info);
+            refetch()
+        } catch (err) {
+            console.log(err.response.data.message);
+        }
     }
+
 
     return (
         <div>
@@ -36,21 +42,21 @@ const UserEdit = ({ id, refetch }) => {
                                     <label className="block font-medium text-start" htmlFor="_email">
                                         User Id
                                     </label>
-                                    <input {...register("userId", { required: true })} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" />
+                                    <input {...register("userId", { required: true })} defaultValue={id} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" />
                                 </div>
                                 <div className="space-y-2 text-sm text-zinc-700 dark:text-zinc-400">
                                     <label className="block font-medium text-start" htmlFor="_email">
                                         User Name
                                     </label>
-                                    <input {...register("userName", { required: true })} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" />
+                                    <input {...register("name", { required: true })} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" />
                                 </div>
                                 <div className="space-y-2 text-sm text-zinc-700 dark:text-zinc-400">
                                     <label className="block font-medium text-start" htmlFor="_email">
                                         User Status
                                     </label>
-                                    <select  {...register("userStatus", { required: true })} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" >
-                                        <option value="Active">Active</option>
-                                        <option value="Disable">Disable</option>
+                                    <select  {...register("verified", { required: true })} className="rounded-lg border w-full border-[#CB087D] bg-transparent px-4 py-2 text-[#CB087D] focus:outline-none" type="text" >
+                                        <option value="true">Active</option>
+                                        <option value="false">Disable</option>
                                     </select>
                                     {/* <input/> */}
                                 </div>

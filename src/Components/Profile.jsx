@@ -5,18 +5,18 @@ import { useState } from "react";
 
 const Profile = () => {
 
-    const [isOpen, setIsOpen] = useState(null);
-    const dataArr = [{ title: "How do I create an account?", description: 'To create an account, click on the "Sign Up" button and fill out the required information. Once done, you can enjoy the benefits of being a registered member.', }, { title: "What is your return policy?", description: "Our return policy allows you to return items within 30 days of purchase. Please visit our returns page for detailed instructions and to initiate a return.", }, { title: "Can I change my shipping address?", description: "Yes, you can change your shipping address before your order is shipped. Go to your account settings and update the shipping information accordingly.", }, { title: "Are there any discounts for loyal customers?", description: "We appreciate our loyal customers! Stay tuned for exclusive discounts, promotions, and special offers available to members of our loyalty program.", },];
-    const toggle = (idx) => {
-        setIsOpen((prevIdx) => (prevIdx === idx ? null : idx))
-    };
+    // const [isOpen, setIsOpen] = useState(null);
+    // const dataArr = [{ title: "How do I create an account?", description: 'To create an account, click on the "Sign Up" button and fill out the required information. Once done, you can enjoy the benefits of being a registered member.', }, { title: "What is your return policy?", description: "Our return policy allows you to return items within 30 days of purchase. Please visit our returns page for detailed instructions and to initiate a return.", }, { title: "Can I change my shipping address?", description: "Yes, you can change your shipping address before your order is shipped. Go to your account settings and update the shipping information accordingly.", }, { title: "Are there any discounts for loyal customers?", description: "We appreciate our loyal customers! Stay tuned for exclusive discounts, promotions, and special offers available to members of our loyalty program.", },];
+    // const toggle = (idx) => {
+    //     setIsOpen((prevIdx) => (prevIdx === idx ? null : idx))
+    // };
 
-    const [notification, setNotification] = useState(false)
+    // const [notification, setNotification] = useState(false)
 
     return (
         <div className="flex items-center gap-3 pr-10">
             {/* icon */}
-            <IoMdNotificationsOutline onClick={() => setNotification(!notification)} className="text-2xl cursor-pointer relative" />
+            {/* <IoMdNotificationsOutline onClick={() => setNotification(!notification)} className="text-2xl cursor-pointer relative" /> */}
             {/* Profile info */}
             <div className="flex items-center gap-2">
                 <img
@@ -33,7 +33,7 @@ const Profile = () => {
                 {/* <TiArrowSortedDown className="text-xl" /> */}
             </div>
             {/* Notifications info */}
-            <div className={`absolute ${notification ? 'block' : 'hidden'} top-28 right-0 md:right-8 z-50 mx-auto w-full max-w-[550px] rounded-lg bg-[#faddee] p-4`}>
+            {/* <div className={`absolute ${notification ? 'block' : 'hidden'} top-28 right-0 md:right-8 z-50 mx-auto w-full max-w-[550px] rounded-lg bg-[#faddee] p-4`}>
                 {dataArr.map((PerAccordion, idx) => (
                     <div key={idx} className="my-2 rounded-lg border bg-white p-3 py-3 *:mix-blend-difference dark:border-zinc-600 dark:bg-zinc-800">
                         <button onClick={() => toggle(idx)} className="flex h-full w-full items-center justify-between font-medium text-white outline-none">
@@ -50,7 +50,7 @@ const Profile = () => {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -9,10 +9,11 @@ const Referral = () => {
     const { data, refetch } = useQuery({
         queryKey: ['refers'],
         queryFn: async () => {
-            const info = await axiosPublic.get(`/refers`)
+            const info = await axiosPublic.get(`/all/reffer/user`)
             return info?.data
         }
     })
+    console.log(data?.user);
 
     return (
         <div className="space-y-12">
@@ -36,23 +37,20 @@ const Referral = () => {
                     </thead>
                     <tbody>
                         {
-                            data?.map((item, i) => (
+                            data?.user?.map((item, i) => (
                                 <tr key={item._id} className="hover:bg-gray-50 transition duration-300 text-center font-semibold">
                                     <td className="py-4 px-6 border border-l-0 border-[#CB084B]">{i + 1}</td>
                                     <td className="py-4 px-6 border border-[#CB084B]">{item.name}</td>
                                     <td className="py-4 px-6 border border-[#CB084B] space-y-4">
-                                        {
-                                            item?.refer.map((name, i) => <h1 key={i}>{i + 1}. {item.status === 'Pending' && name}</h1>)
-                                        }
+                                        {item?.reffer}
                                     </td>
                                     <td className="py-4 px-6 border border-r-0 border-[#CB084B] space-y-4">
                                         {
-                                            item?.refer.map((i) => (
-                                                <div key={i} className="flex justify-center gap-5">
-                                                    <button className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
-                                                    <button className="px-3 py-1 rounded-full bg-[#949393] text-white">Decline</button>
-                                                </div>
-                                            ))
+                                            item?.reffer &&
+                                            <div className="flex justify-center gap-5">
+                                                <button className="px-4 py-1 rounded-full bg-[#12C703] text-white">Approve</button>
+                                                <button className="px-3 py-1 rounded-full bg-[#949393] text-white">Decline</button>
+                                            </div>
                                         }
                                     </td>
                                 </tr>
